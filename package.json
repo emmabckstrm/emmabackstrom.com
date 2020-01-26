@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "next -p 4001",
-    "build": "next build -p 4001",
-    "start": "next start -p 4001"
-  },  
+    "dev": "NODE_PATH=. next -p 4001",
+    "build": "NODE_PATH=. next build",
+    "start": "next start -p $PORT"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
