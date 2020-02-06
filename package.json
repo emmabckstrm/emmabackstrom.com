@@ -7,7 +7,7 @@
     "dev": "NODE_PATH=. next -p 4001",
     "build": "NODE_PATH=. next build",
     "start": "next start -p $PORT"
-  },  
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
