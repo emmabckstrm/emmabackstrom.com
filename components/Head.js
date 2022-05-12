@@ -1,13 +1,13 @@
-import Head from "next/head";
+import NextHead from "next/head";
 
 const URL = "https://emmabackstrom.com/";
 const TITLE = "Emma Bäckström";
 const DESCRIPTION = "Frontend/fullstack Engineer";
 
-function Layout(props) {
+function Head(props) {
   return (
     <>
-      <Head>
+      <NextHead>
         <link
           rel="icon"
           type="image/png"
@@ -35,30 +35,11 @@ function Layout(props) {
         <meta property="twitter:url" content={URL} />
         <meta property="twitter:title" content={TITLE} />
         <meta property="twitter:description" content={DESCRIPTION} />
-      </Head>
+      </NextHead>
 
       {props.children}
-      <style jsx global>{`
-        html,
-        body,
-        #__next {
-          position: relative;
-          width: 100%;
-          height: 100%;
-          margin: 0;
-          padding: 0;
-        }
-        body {
-          font-size: 18px;
-          font-weight: 400;
-          line-height: 1.8;
-          color: #333;
-          background: #eee;
-          font-family: sans-serif;
-        }
-      `}</style>
     </>
   );
 }
 
-export default Layout;
+export default Head;
