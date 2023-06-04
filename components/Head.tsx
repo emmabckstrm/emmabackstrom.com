@@ -1,10 +1,11 @@
 import NextHead from "next/head";
+import type { ReactNode} from 'react';
 
 const URL = "https://emmabackstrom.com/";
 const TITLE = "Emma Bäckström";
 const DESCRIPTION = "Frontend/fullstack Engineer";
 
-function Head(props) {
+function Head({children}: {children?: ReactNode }) {
   return (
     <>
       <NextHead>
@@ -37,7 +38,7 @@ function Head(props) {
         <meta property="twitter:description" content={DESCRIPTION} />
       </NextHead>
 
-      {props.children}
+      {children}
     </>
   );
 }
