@@ -1,11 +1,11 @@
 import NextHead from "next/head";
-import type { ReactNode} from 'react';
+import type { ReactNode } from "react";
 
 const URL = "https://emmabackstrom.com/";
 const TITLE = "Emma Bäckström";
 const DESCRIPTION = "Frontend/fullstack Engineer";
 
-function Head({children}: {children?: ReactNode }) {
+function Head({ children }: { children?: ReactNode }) {
   return (
     <>
       <NextHead>
