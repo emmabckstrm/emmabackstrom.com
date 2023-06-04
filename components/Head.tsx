@@ -5,7 +5,7 @@ const URL = "https://emmabackstrom.com/";
 const TITLE = "Emma Bäckström";
 const DESCRIPTION = "Frontend/fullstack Engineer";
 
-function Head({ children }: { children?: ReactNode }) {
+export const Head = ({ children }: { children?: ReactNode }) => {
   return (
     <>
       <NextHead>
@@ -41,6 +41,4 @@ function Head({ children }: { children?: ReactNode }) {
       {children}
     </>
   );
-}
-
-export default Head;
+};
