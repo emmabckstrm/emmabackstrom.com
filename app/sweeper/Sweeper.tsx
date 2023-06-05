@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { Square } from "../../components/sweeper/Square";
 import { initGameBoard } from "./setup";
@@ -11,15 +13,16 @@ export const Sweeper = () => {
 
   return (
     <div className="bg-white">
-      {gameBoard.map((row) => {
+      {gameBoard.map((row, r) => {
         return (
-          <div>
-            {row.map((col) => {
+          <div key={`row-${r}`}>
+            {row.map((col, c) => {
               return (
                 <Square
                   isBomb={col.isBomb}
                   isOpen={col.isOpen}
                   adjacentBombs={col.adjacentBombs}
+                  key={`row-${r}-col-${c}`}
                 >
                   {col.isOpen.toString()}
                 </Square>
