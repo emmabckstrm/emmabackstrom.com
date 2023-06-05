@@ -14,7 +14,7 @@ export default function HomePage() {
       >
         <div className="text-black w-10/12 sm:max-w-xs md:max-w-md space-y-2">
           <h1 className="font-bold text-3xl md:text-6xl italic capitalize">
-            hey there!
+            hello!
           </h1>
           <p className="text-lg md:text-2xl font-mono">
             I'm Emma, a Fullstack Engineer based in Stockholm.

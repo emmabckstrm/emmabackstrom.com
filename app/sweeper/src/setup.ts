@@ -18,7 +18,7 @@ export const initGameBoard = (width: number, height: number): GameBoard => {
     const newRow: SquareStatus[] = [];
     board.push(newRow);
     for (let col = 0; col < width; col++) {
-      board[row][col] = squareStatus;
+      board[row][col] = { ...squareStatus };
     }
   }
   return board;
