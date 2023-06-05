@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Square } from "../../components/sweeper/Square";
-import { initGameBoard } from "./setup";
+import { Square } from "./components/Square";
+import { initGameBoard } from "./src/setup";
 
 const WIDTH = 10;
 const HEIGHT = 10;
