@@ -16,10 +16,10 @@ export const initGameBoard = (width: number, height: number): GameBoard => {
   };
   for (let row = 0; row < height; row++) {
     const newRow: SquareStatus[] = [];
-    board.push(newRow);
     for (let col = 0; col < width; col++) {
-      board[row][col] = { ...squareStatus };
+      newRow.push({ ...squareStatus });
     }
+    board.push(newRow);
   }
   return board;
 };
@@ -77,3 +77,31 @@ export const generateBombPositions = (
 };
 
 export const calculateAdjacentBombs = () => {};
+
+export const getAdjacentSquares = (
+  row: number,
+  col: number,
+  gameBoard: GameBoard
+) => {
+  const adjacents: Position[] = [];
+  const deltas = [-1, 0, 1];
+  for (let i = 0; i < 8; i++) {}
+  deltas.forEach((delta) => {
+    deltas.forEach((delta2) => {
+      if (delta === 0 && delta2 === 0) return;
+      const newRow = row + delta;
+      const newCol = col + delta2;
+      if (
+        newRow < 0 ||
+        newRow >= gameBoard.length ||
+        newCol < 0 ||
+        newCol >= gameBoard[0].length
+      ) {
+        return;
+      }
+
+      adjacents.push([newRow, newCol]);
+    });
+  });
+  return adjacents;
+};

@@ -4,6 +4,7 @@ import {
   initGameBoard,
   positionExistsInArray,
   generateBombPositions,
+  getAdjacentSquares,
 } from "./setup";
 import type { SquareStatus, GameBoard } from "./setup";
 
@@ -100,6 +101,39 @@ describe("calculateAdjacentBombs", () => {
   it("takes a game board with bombs and returns an array of squares to update adjacentBomb value", () => {});
 });
 
-describe("getAdjacentSquares", () => {
-  it("takes a game board and a position and returns adjacent positions", () => {});
+describe(getAdjacentSquares, () => {
+  const board = initGameBoard(4, 4);
+
+  it("returns correct squares for top left position", () => {
+    const adjacents = getAdjacentSquares(0, 0, board);
+    expect(adjacents.length).toEqual(3);
+    expect(adjacents[0][0]).toEqual(0);
+    expect(adjacents[0][1]).toEqual(1);
+    expect(adjacents[1][0]).toEqual(1);
+    expect(adjacents[1][1]).toEqual(0);
+  });
+
+  it("returns correct adjacent squares for central positoin", () => {
+    const adjacents = getAdjacentSquares(1, 1, board);
+    expect(adjacents.length).toEqual(8);
+    expect(adjacents[0][0]).toEqual(0);
+    expect(adjacents[0][1]).toEqual(0);
+    expect(adjacents[adjacents.length - 1][0]).toEqual(2);
+    expect(adjacents[adjacents.length - 1][1]).toEqual(2);
+  });
+
+  it("returns correct adjacent squares for right side middle positoin", () => {
+    const adjacents = getAdjacentSquares(1, 3, board);
+    expect(adjacents.length).toEqual(5);
+  });
+
+  it("returns correct adjacent squares for botom middle positoin", () => {
+    const adjacents = getAdjacentSquares(3, 2, board);
+    expect(adjacents.length).toEqual(5);
+  });
+
+  it("returns correct adjacent squares for bottom right positoin", () => {
+    const adjacents = getAdjacentSquares(3, 3, board);
+    expect(adjacents.length).toEqual(3);
+  });
 });
