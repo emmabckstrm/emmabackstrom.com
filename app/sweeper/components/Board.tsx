@@ -1,4 +1,5 @@
-import type { ReactNode } from "react";
+import type { ChangeEvent, ReactNode } from "react";
+import { useState } from "react";
 import { Input } from "./Input";
 import { Button } from "./Button";
 import type { SquareT } from "./Square";
@@ -14,12 +15,18 @@ export const Board = ({
   gameBoard,
   isGameRunning,
   renderSquare,
+  handleOnGameStart,
 }: {
   children?: ReactNode;
   gameBoard: GameBoard;
   isGameRunning: boolean;
   renderSquare: (arg0: RenderSquare) => ReactNode;
+  handleOnGameStart: () => void;
 }) => {
+  const [numberOfRows, setNumberOfRows] = useState(10);
+  const [numberOfCols, setNumberOfCols] = useState(10);
+  const [numberOfBombs, setNumberOfBombs] = useState(5);
+
   return (
     <div
       className={`w-auto inline-flex min-w-[150px] min-h-[250px]
@@ -34,18 +41,38 @@ export const Board = ({
           <div className="flex flex-row flex-nowrap space-x-2">
             <div className="flex flex-col m-1">
               <span className="text-center text-sm">rows</span>
-              <Input disabled={isGameRunning} />
+              <Input
+                disabled={isGameRunning}
+                value={numberOfRows}
+                onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                  setNumberOfRows(Number(event.target.value))
+                }
+              />
             </div>
             <div className="flex flex-col m-1">
               <span className="text-center text-sm">columns</span>
-              <Input disabled={isGameRunning} />
+              <Input
+                disabled={isGameRunning}
+                value={numberOfCols}
+                onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                  setNumberOfCols(Number(event.target.value))
+                }
+              />
             </div>
             <div className="flex flex-col m-1">
               <span className="text-center text-sm">bombs</span>
-              <Input disabled={isGameRunning} />
+              <Input
+                disabled={isGameRunning}
+                value={numberOfBombs}
+                onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                  setNumberOfBombs(Number(event.target.value))
+                }
+              />
             </div>
           </div>
-          <Button>Start game</Button>
+          <Button onClick={() => handleOnGameStart(numberOfRows, numberOfCols)}>
+            Start game
+          </Button>
         </>
       )}
       <div>

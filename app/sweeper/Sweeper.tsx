@@ -10,16 +10,29 @@ const HEIGHT = 10;
 const NUMBER_OF_BOMBS = 2;
 
 export const Sweeper = () => {
-  const [gameBoard, setGameBoard] = useState(initGameBoard(WIDTH, HEIGHT));
+  const [gameIsRunning, setGameIsRunning] = useState(false);
+  const [gameBoard, setGameBoard] = useState([]);
 
-  const handleOnSquareClick = () => {};
-  const handleOnSquareSecondClick = () => {};
+  const handleOnSquareClick = () => {
+    console.log("left click");
+  };
+  const handleOnSquareSecondClick = () => {
+    console.log("right click");
+  };
+  const handleOnGameStart = (rows: number, cols: number, bombs: number) => {
+    console.log("rows,", rows, "cols", cols);
+    const gb = initGameBoard(cols, rows);
+    setGameBoard(gb);
+    setGameIsRunning(true);
+    console.log("game start!\n", gameBoard, "\n\n\n", gb);
+  };
 
   return (
     <div className="flex justify-center p-24">
       <Board
         gameBoard={gameBoard}
-        isGameRunning={false}
+        isGameRunning={gameIsRunning}
+        handleOnGameStart={handleOnGameStart}
         renderSquare={({ key, ...props }) => (
           <Square
             key={key}
@@ -28,26 +41,7 @@ export const Sweeper = () => {
             {...props}
           />
         )}
-      >
-        {/* {gameBoard.map((row, r) => {
-          return (
-            <div key={`row-${r}`}>
-              {row.map((col, c) => {
-                return (
-                  <Square
-                    isBomb={col.isBomb}
-                    isOpen={col.isOpen}
-                    adjacentBombs={col.adjacentBombs}
-                    key={`row-${r}-col-${c}`}
-                  >
-                    {col.isOpen.toString()}
-                  </Square>
-                );
-              })}
-            </div>
-          );
-        })} */}
-      </Board>
+      ></Board>
     </div>
   );
 };
