@@ -7,16 +7,16 @@ export interface SquareStatus {
 export type GameBoard = SquareStatus[][];
 type Position = [number, number];
 
-export const initGameBoard = (width: number, height: number): GameBoard => {
+export const initGameBoard = (rows: number, cols: number): GameBoard => {
   const board = [];
   const squareStatus = {
     isBomb: false,
     isOpen: false,
     adjacentBombs: 0,
   };
-  for (let row = 0; row < height; row++) {
+  for (let row = 0; row < rows; row++) {
     const newRow: SquareStatus[] = [];
-    for (let col = 0; col < width; col++) {
+    for (let col = 0; col < cols; col++) {
       newRow.push({ ...squareStatus });
     }
     board.push(newRow);
@@ -40,16 +40,16 @@ export const positionExistsInArray = (
 };
 
 export const generateBombPositions = (
-  width: number,
-  height: number,
+  rows: number,
+  cols: number,
   numberOfBombs: number,
-  reservedPositions: Position[]
+  reservedPositions: Position[] = []
 ) => {
-  if (width * height - reservedPositions.length <= numberOfBombs) {
+  if (cols * rows - reservedPositions.length <= numberOfBombs) {
     throw new Error("too many bombs!");
   }
   const positions: Position[] = [];
-
+  console.log("generate bombs!", numberOfBombs);
   const random = (max: number): number => {
     return Math.floor(Math.random() * max);
   };
@@ -66,9 +66,9 @@ export const generateBombPositions = (
   };
 
   for (let i = 0; i < numberOfBombs; i++) {
-    let pos = [random(height), random(width)] as [number, number];
+    let pos = [random(rows), random(cols)] as [number, number];
     while (disallowedPosition(pos, positions, reservedPositions)) {
-      pos = [random(height), random(width)];
+      pos = [random(rows), random(cols)];
     }
 
     positions.push(pos);
@@ -86,11 +86,11 @@ export const getAdjacentSquares = (
   const adjacents: Position[] = [];
   const deltas = [-1, 0, 1];
   for (let i = 0; i < 8; i++) {}
-  deltas.forEach((delta) => {
-    deltas.forEach((delta2) => {
-      if (delta === 0 && delta2 === 0) return;
-      const newRow = row + delta;
-      const newCol = col + delta2;
+  deltas.forEach((rowDelta) => {
+    deltas.forEach((colDelta) => {
+      if (rowDelta === 0 && colDelta === 0) return;
+      const newRow = row + rowDelta;
+      const newCol = col + colDelta;
       if (
         newRow < 0 ||
         newRow >= gameBoard.length ||

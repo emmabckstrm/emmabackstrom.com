@@ -70,7 +70,11 @@ export const Board = ({
               />
             </div>
           </div>
-          <Button onClick={() => handleOnGameStart(numberOfRows, numberOfCols)}>
+          <Button
+            onClick={() =>
+              handleOnGameStart(numberOfRows, numberOfCols, numberOfBombs)
+            }
+          >
             Start game
           </Button>
         </>
