@@ -5,6 +5,31 @@ import { Button } from "./Button";
 import type { SquareT } from "./Square";
 import type { GameBoard } from "../src/setup";
 
+const DEFAULTS: Record<
+  "beginner" | "intermediate" | "expert",
+  {
+    rows: number;
+    cols: number;
+    bombs: number;
+  }
+> = {
+  beginner: {
+    rows: 10,
+    cols: 10,
+    bombs: 10,
+  },
+  intermediate: {
+    rows: 15,
+    cols: 15,
+    bombs: 40,
+  },
+  expert: {
+    rows: 16,
+    cols: 30,
+    bombs: 99,
+  },
+};
+
 interface RenderSquare
   extends Pick<SquareT, "isBomb" | "isOpen" | "adjacentBombs"> {
   key: any;
@@ -25,7 +50,7 @@ export const Board = ({
 }) => {
   const [numberOfRows, setNumberOfRows] = useState(10);
   const [numberOfCols, setNumberOfCols] = useState(10);
-  const [numberOfBombs, setNumberOfBombs] = useState(5);
+  const [numberOfBombs, setNumberOfBombs] = useState(10);
 
   return (
     <div
@@ -38,45 +63,52 @@ export const Board = ({
       <div className="font-bold text-3xl">Sweeper</div>
       {!isGameRunning && (
         <>
-          <div className="flex flex-row flex-nowrap space-x-2">
-            <div className="flex flex-col m-1">
-              <span className="text-center text-sm">rows</span>
-              <Input
-                disabled={isGameRunning}
-                value={numberOfRows}
-                onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                  setNumberOfRows(Number(event.target.value))
-                }
-              />
-            </div>
-            <div className="flex flex-col m-1">
-              <span className="text-center text-sm">columns</span>
-              <Input
-                disabled={isGameRunning}
-                value={numberOfCols}
-                onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                  setNumberOfCols(Number(event.target.value))
-                }
-              />
-            </div>
-            <div className="flex flex-col m-1">
-              <span className="text-center text-sm">bombs</span>
-              <Input
-                disabled={isGameRunning}
-                value={numberOfBombs}
-                onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                  setNumberOfBombs(Number(event.target.value))
-                }
-              />
-            </div>
+          <div className="flex flex-col items-center flex-nowrap space-y-2">
+            {Object.entries(DEFAULTS).map(([key, item]) => {
+              return (
+                <div className="flex flex-col items-center">
+                  <Button
+                    className="capitalize"
+                    onClick={() =>
+                      handleOnGameStart(item.rows, item.cols, item.bombs)
+                    }
+                  >
+                    {key}
+                  </Button>
+                  <div className="text-xs text-purple-800 italic">{` (${item.rows} x ${item.cols}, ${item.bombs})`}</div>
+                </div>
+              );
+            })}
           </div>
-          <Button
-            onClick={() =>
-              handleOnGameStart(numberOfRows, numberOfCols, numberOfBombs)
-            }
-          >
-            Start game
-          </Button>
+          <div className="flex flex-row flex-nowrap space-x-2 items-start">
+            {[
+              { key: "rows", value: numberOfRows, setter: setNumberOfRows },
+              { key: "cols", value: numberOfCols, setter: setNumberOfCols },
+              { key: "bombs", value: numberOfBombs, setter: setNumberOfBombs },
+            ].map((item) => {
+              const { key, value, setter } = item;
+              return (
+                <div className="flex flex-col">
+                  <Input
+                    disabled={isGameRunning}
+                    value={value}
+                    onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                      setter(Number(event.target.value))
+                    }
+                  />
+                  <span className="text-center text-sm">{key}</span>
+                </div>
+              );
+            })}
+            <Button
+              className="h-10"
+              onClick={() =>
+                handleOnGameStart(numberOfRows, numberOfCols, numberOfBombs)
+              }
+            >
+              Custom
+            </Button>
+          </div>
         </>
       )}
       <div>
@@ -84,7 +116,7 @@ export const Board = ({
           <div className="shadow-sm inline-block bg-purple-600 p-1 rounded-md">
             {gameBoard.map((row, r) => {
               return (
-                <div key={`row-${r}`}>
+                <div key={`row-${r}`} className="flex flex-row">
                   {row.map((col, c) => {
                     return renderSquare({
                       isBomb: col.isBomb,
