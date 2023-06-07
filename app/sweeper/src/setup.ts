@@ -5,7 +5,7 @@ export interface SquareStatus {
 }
 
 export type GameBoard = SquareStatus[][];
-type Position = [number, number];
+export type Position = [number, number];
 
 export const initGameBoard = (rows: number, cols: number): GameBoard => {
   const board = [];
@@ -39,6 +39,17 @@ export const positionExistsInArray = (
   return false;
 };
 
+const disallowedPosition = (
+  position: Position,
+  occupiedPositions: Position[],
+  reservedPositions: Position[]
+) => {
+  return (
+    positionExistsInArray(position, occupiedPositions) ||
+    positionExistsInArray(position, reservedPositions)
+  );
+};
+
 export const generateBombPositions = (
   rows: number,
   cols: number,
@@ -52,17 +63,6 @@ export const generateBombPositions = (
   console.log("generate bombs!", numberOfBombs);
   const random = (max: number): number => {
     return Math.floor(Math.random() * max);
-  };
-
-  const disallowedPosition = (
-    position: Position,
-    occupiedPositions: Position[],
-    reservedPositions: Position[]
-  ) => {
-    return (
-      positionExistsInArray(position, occupiedPositions) ||
-      positionExistsInArray(position, reservedPositions)
-    );
   };
 
   for (let i = 0; i < numberOfBombs; i++) {

@@ -32,7 +32,8 @@ const DEFAULTS: Record<
 
 interface RenderSquare
   extends Pick<SquareT, "isBomb" | "isOpen" | "adjacentBombs"> {
-  key: any;
+  row: number;
+  col: number;
 }
 
 export const Board = ({
@@ -46,7 +47,7 @@ export const Board = ({
   gameBoard: GameBoard;
   isGameRunning: boolean;
   renderSquare: (arg0: RenderSquare) => ReactNode;
-  handleOnGameStart: () => void;
+  handleOnGameStart: (rows: number, cols: number, bombs: number) => void;
 }) => {
   const [numberOfRows, setNumberOfRows] = useState(10);
   const [numberOfCols, setNumberOfCols] = useState(10);
@@ -122,7 +123,8 @@ export const Board = ({
                       isBomb: col.isBomb,
                       isOpen: col.isOpen,
                       adjacentBombs: col.adjacentBombs,
-                      key: `row-${r}-col-${c}`,
+                      row: r,
+                      col: c,
                     });
                   })}
                 </div>
