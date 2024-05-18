@@ -20,7 +20,7 @@ const Index = () => {
               className="underline text-purple-600 font-bold hover:tracking-widest transition-all"
               href="https://www.linkedin.com/in/emmabackstrom"
             >
-              https://www.linkedin.com/in/emmabackstrom
+              emmabackstrom @ linkedin
             </a>
           </p>
         </div>
